@@ -1,12 +1,10 @@
 # Portfolio Part 1: Component Brainstorming
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) then delete this comment -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) then delete this comment -->
-- **Due Date**: <!-- TODO: fill with due date and time (e.g., 10/17 @ 3:10 PM EST) then delete this comment -->
+- **Name**: Luke Butcher
+- **Dot Number**: butcher.284
+- **Due Date**: 2/6 @ 12:40 PM
 
 ## Assignment Overview
-
-<!-- TODO: read the assignment overview then delete this comment -->
 
 The overall goal of the portfolio project is to have you design and implement
 your own OSU component. There are no limits to what you choose to design and
@@ -29,8 +27,6 @@ implement.
 
 ## Assignment Checklist
 
-<!-- TODO: browse the checklist then delete this comment -->
-
 To be sure you have completed everything on this assignment, we have littered
 this document with TODO comments. You can browse all of them in VSCode by
 opening the TODOs window from the sidebar. The icon looks like a tree and will
@@ -52,27 +48,22 @@ to the tree diagram (you may remove this one as well):
 
 ## Assignment Learning Objectives
 
-<!-- TODO: read the assignment learning objectives then delete this comment -->
-
 Without learning objectives, there really is no clear reason why a particular
 assessment or activity exists. Therefore, to be completely transparent, here is
 what we're hoping you will learn through this particular aspect of the portfolio
 project. Specifically, students should be able to:
 
-1. Integrate their areas of interest in their personal lives and/or careers with
-   their knowledge of software design
+1. Integrate their areas of interest in their personal lives and/or careers with their knowledge of software design
 2. Determine the achievablility of a software design given time constraints
 3. Design high-level software components following the software sequence
    discipline
 
 ## Assignment Rubric: 10 Points
 
-<!-- TODO: read the assignment rubric then delete this comment -->
-
 Again, to be completely transparent, most of the portfolio project, except the
 final submission, is designed as a formative assessment. Formative assessments
 are meant to provide ongoing feedback in the learning process. Therefore,
-the rubric is designed to assess the learning objectives *directly* in a way
+the rubric is designed to assess the learning objectives _directly_ in a way
 that is low stakes—meaning you shouldn't have to worry about the grade. Just
 do good work.
 
@@ -106,23 +97,15 @@ Below is further rationale/explanation for the rubric items above:
 > brainstorming. Plus it helps us get to know you better! Feel free to share
 > images in this section.
 
-<!-- TODO: briefly talk about your interests then delete this comment.
-Also, protip: you can preview what your response looks like by hitting
-the magnifying glass icon in the upper-right corner or pressing CTRL+K and
-then V. This kind of button combination is called a chord, for whatever
-reason -->
+My biggest interests definitely involve sports, specifically, I played golf and tennis in high school and have done my best to stay active in golf and tennis throughout my early college career. For example, I play on the club tennis team. I'm also interested in finance and the stock market, though I haven't really dedicated my time to picking stocks and tend to just put my money in ETFs or mutual funds. As for my career interests, I'm looking to specialize in AI as I envision demand can only increase for people that can best take advantage and innovate on these tools. I also enjoy data analytics and am a member of the Big Data and Analytics Association at Ohio State, and will be working an internship in Summer 2026 in Data Analytics at Cleveland-Cliffs.
 
 ## Assignment
-
-<!-- TODO: read the assignment section then delete this comment -->
 
 As previously stated, you are tasked with brainstorming 3 possible components.
 To aid you in this process, we have provided [some example components][example-components]
 that may help you in your brainstorming. All of these components were made at
 some point by one of your peers, so you should feel confident that you can
 accomplish any of them.
-
-<!-- TODO: browse the list of possible projects then delete this comment -->
 
 There is no requirement that you use any of the components listed above.
 If you want to model something else, go for it! Very common early object
@@ -142,8 +125,6 @@ list-like components that have different ways of manipulating the data. Think
 about different ways you might allow a client to manipulate your component.
 
 ### Example Component
-
-<!-- TODO: review this example component then delete this comment -->
 
 To help you brainstorm a few components, we've provided an example below of a
 component you already know well: NaturalNumber. We highly recommend that you
@@ -168,7 +149,7 @@ format, we can be more confident that your designs will be possible.
     - `NaturalNumber divide(NaturalNumber n)`: divides `this` by `n`, returning
       the remainder
     - ...
-  - **Additional Considerations** (*note*: "I don't know" is an acceptable
+  - **Additional Considerations** (_note_: "I don't know" is an acceptable
     answer for each of the following questions):
     - Would this component be mutable? Answer and explain:
       - Yes, basically all OSU components have to be mutable as long as they
@@ -180,7 +161,7 @@ format, we can be more confident that your designs will be possible.
     - Would this component need any enums or constants (e.g.,
       `Program.Instruction`)? Answer and explain:
       - Yes. NaturalNumber is base 10, and we track that in a constant called
-          `RADIX`.
+        `RADIX`.
     - Can you implement your secondary methods using your kernel methods?
       Answer, explain, and give at least one example:
       - Yes. The kernel methods `multiplyBy10` and `divideBy10` can be used to
@@ -211,68 +192,106 @@ will likely refine your design to make your implementation easier to use.
 
 > Please use this section to share your designs.
 
-- Component Design #1: <!-- TODO: give component a name then delete this comment -->
+- Component Design #1: JobSearchTracker
   - **Description**:
-    - <!-- TODO: describe your component then delete this comment -->
+    - Stores data related to the job/internship search process, such as the title, company name, stage in the process (ex. applied, rejected, interview round #, offered, etc.). Would function much like the spreadsheets you see, but would be more automated and thus more suitable to be part of a bigger application.
   - **Kernel Methods**:
-    - <!-- TODO: list kernel methods then delete this comment -->
+    - addJob(String title, String companyName, String applicationLink):
+      creates a new job to be added to the tracker. Will likely be overloaded to allow more flexibility to the client
+    - deleteJob(String title): deletes the job corresponding to the title
+    - updateJob(String title, String updatedField, String updateFieldValue):
+      updates the data stored in the job 'title' at updatedField, might have to put some restrictions on what fields are "allowed" to be updated after creation. If any fields are empty, this method would also add that field
+    - getJob(String title): fetches all of the data for the job 'title'
+    - size(): returns number of jobs stored in the component
   - **Secondary Methods**:
-    - <!-- TODO: list secondary methods then delete this comment -->
-  - **Additional Considerations** (*note*: "I don't know" is an acceptable
+    - getUpcomingDeadlines(): returns any upcoming deadlines in the application/
+      hiring process
+    - listAllJobs(): returns or prints the list of all jobs and their attributes
+    - getSuccessRate(String stage): returns the success rate getting to the
+      stage 'stage'
+    - many more that I haven't thought of yet
+  - **Additional Considerations** (_note_: "I don't know" is an acceptable
     answer for each of the following questions):
     - Would this component be mutable? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Yes, the component needs to be extremely flexible will change often
     - Would this component rely on any internal classes (e.g., `Map.Pair`)?
       Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Yes, JobTracker.Job will represent one job in the tracker.
     - Would this component need any enums or constants (e.g.,
       `Program.Instruction`)? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Maybe, although I can't think of any specifics off the top of my head
     - Can you implement your secondary methods using your kernel methods?
       Answer, explain, and give at least one example:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Yes, for example, listAllJobs() would be implemented as a loop to print
+        each Job and its attributes.
 
-- Component Design #2: <!-- TODO: give component a name then delete this comment -->
+- Component Design #2: ResumeControl
   - **Description**:
-    - <!-- TODO: describe your component then delete this comment -->
+    - Acts sort of like version control/Git for resumes. Client can upload/link
+      a resume. Can manage different resumes for different purposes, see version
+      history of each resume, track skills over time, etc.
   - **Kernel Methods**:
-    - <!-- TODO: list kernel methods then delete this comment -->
+    - commit(): new version of the resume. finds the difference between the
+      recent changes and the old version and saves.
+    - status(): see recent commits, timestamps, etc.
+    - addMetadata(String... data): add some extra data that should be attached
+      to the resume. There will probably be many seperate methods for this,
+      but this will stand in for now.
+    - getData(String dataKey) or getData(String dataKey, int commit): get
+      the data associated with a specific resume
+    - view(): view the current resume
   - **Secondary Methods**:
-    - <!-- TODO: list secondary methods then delete this comment -->
-  - **Additional Considerations** (*note*: "I don't know" is an acceptable
+    - view(int commit): view the resume at specified
+      commit.
+    - viewRecentChanges(): prints the recent changes associated with the object
+    - a lot more could be done with this, but I'll leave off here for now
+  - **Additional Considerations** (_note_: "I don't know" is an acceptable
     answer for each of the following questions):
     - Would this component be mutable? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Yes, the component needs to be extremely flexible to change
     - Would this component rely on any internal classes (e.g., `Map.Pair`)?
       Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Not sure. maybe I would use a ResumeControl.Commit class to store changes
     - Would this component need any enums or constants (e.g.,
       `Program.Instruction`)? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Likely not, but it's possible I'm not thinking of some obvious constants
     - Can you implement your secondary methods using your kernel methods?
       Answer, explain, and give at least one example:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Yes, for example, view(int commit) would look at the commits between the current version
+        and this version and each incremental change to arrive at this version
 
-- Component Design #3: <!-- TODO: give component a name then delete this comment -->
+- Component Design #3: GolfTracker
   - **Description**:
-    - <!-- TODO: describe your component then delete this comment -->
+    - Primarily serves to track a golfer's handicap, with functionality to see
+      changes over time, average scores, courses played, and possibly some more
+      advanced statistics.
   - **Kernel Methods**:
-    - <!-- TODO: list kernel methods then delete this comment -->
+    - addRound(int day, int month, int year, int score, String course, double rating, double slope): Adds a new round to the component, defaulting to an 18-hole round. For robustness and matching the offical handicap calculation, it should also allow for rounds of 9-18 holes so will need an extra parameter.
+    - getRound(int day, int month, int year, int round): gets the round played on a certain day. 'round' is optional and handles the case of multiple rounds in a day
+    - editRound(int day, int month, int year, int round, String field, ? edit): 'round' has the same
+      behavior as above. allows client to edit the given 'field'. Should be heavily overloaded.
+    - getAllRounds(): returns the GolfTracker object.
   - **Secondary Methods**:
-    - <!-- TODO: list secondary methods then delete this comment -->
-  - **Additional Considerations** (*note*: "I don't know" is an acceptable
+    - private calculateDifferential(): helper that calculates the differential (diff) and adds the representation to the round.
+      Uses the USGA calculation given the 'score', 'rating', and 'slope' of the Round.
+    - calculateHandicap() or calculateHandicap(int day, int month, int year): Returns the best 8 out of last 20
+      diffs from either the current or a past date
+    - getRecentRounds(int day, int month, int year): gets all rounds played on or after the given date
+    - These are enough for basic handicap tracker functionality, but will want a lot more methods for analytics,
+      such as handicapChangeSummary, averageScore, etc.
+  - **Additional Considerations** (_note_: "I don't know" is an acceptable
     answer for each of the following questions):
     - Would this component be mutable? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Yes, since we're adding rounds often, it needs to be flexible
     - Would this component rely on any internal classes (e.g., `Map.Pair`)?
       Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Would for sure need a class GolfTracker.Round that contains the data correspoding to one round played.
     - Would this component need any enums or constants (e.g.,
       `Program.Instruction`)? Answer and explain:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Would need at least one constant that I can think of, defining DEFAULT_HOLES_PLAYED as 18.
     - Can you implement your secondary methods using your kernel methods?
       Answer, explain, and give at least one example:
-      - <!-- TODO: provide an argument then delete this comment -->
+      - Yes, for example, calculateHandicap() would use getRound() to get the differential for each of the recent rounds. It also needs to call the secondary method getRecentRounds(), which calls getAllRounds() and truncates the results before the 20th round.
 
 ## Post-Assignment
 
@@ -280,8 +299,6 @@ The following sections detail everything that you should do once you've
 completed the assignment.
 
 ### Changelog
-
-<!-- TODO: create CHANGELOG then delete this comment -->
 
 At the end of every assignment, you should update the
 [CHANGELOG.md](../../CHANGELOG.md) file found in the root of the project folder.
@@ -320,8 +337,6 @@ of development.
 
 ### Submission
 
-<!-- TODO: read the submission instructions then delete this comment -->
-
 If you have completed the assignment using this template, we recommend that
 you convert it to a PDF before submission. If you're not sure how, check out
 this [Markdown to PDF guide][markdown-to-pdf-guide]. However, PDFs should be
@@ -330,11 +345,7 @@ all your work is there before submitting. For future assignments, you will
 just be submitting a link to a pull request. This will be the only time
 you have to submit any PDFs.
 
-<!-- TODO: upload a PDF of this document and the CHANGELOG to Carmen then delete this comment -->
-
 ### Peer Review
-
-<!-- TODO: review the peer review guidelines then delete this comment -->
 
 Following the completion of this assignment, you will be assigned three
 students' component brainstorming assignments for review. Your job during the
@@ -360,8 +371,6 @@ PDF to read this rubric as a table).
 If you'd like to give feedback for this assignment (or any assignment, really),
 make use of [this survey][survey]. Your feedback helps make assignments
 better for future students.
-
-<!-- TODO: follow the link to share your feedback then delete this comment -->
 
 [example-components]: https://therenegadecoder.com/code/the-never-ending-list-of-small-programming-project-ideas/
 [markdown-to-pdf-guide]: https://therenegadecoder.com/blog/how-to-convert-markdown-to-a-pdf-3-quick-solutions/
