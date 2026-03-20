@@ -1,302 +1,76 @@
 package components.GolfTracker;
 
-import java.util.Arrays;
-
+import components.GolfTracker.GolfTracker1.Course;
+import components.GolfTracker.GolfTracker1.Round;
 import components.sequence.Sequence;
-import components.sequence.Sequence1L;
-import components.simplereader.SimpleReader;
-import components.simplereader.SimpleReader1L;
-import components.simplewriter.SimpleWriter;
-import components.simplewriter.SimpleWriter1L;
 
-/*
-* Allows for tracking of rounds played at courses, calculates handicaps (simply
-* for now)
-*/
-public class GolfTracker {
-
-    /*
-     * GolfTracker is represented as a Sequence of Rounds ("roundEntries")
-     * ordered with the most recent (by date, then ID) rounds at the end of the
-     * Sequence
+/**
+ * {@code GolfTrackerKernel} enhanced with secondary methods. Any more ideas for
+ * some interesting enhanced methods?
+ */
+public interface GolfTracker extends GolfTrackerKernel {
+    /**
+     * Simple USGA-based handicap calculation for the rounds in this.
+     *
+     * @return the handicap given the rounds in this
+     * @requires number of rounds in this >= 3
+     * @ensures calculateHandicap = handicap rounded to tenths place
      */
-    private Sequence<GolfTracker.Round> roundEntries;
+    double calculateHandicap();
 
-    /* initialize this.roundEntries to be empty */
-    public GolfTracker() {
-        this.roundEntries = new Sequence1L<>();
-    }
-
-    /* Adds a round to the tracker */
-    public void addRound(int strokes, int holesPlayed, int month, int day,
-            int year, int id, GolfTracker.Course course) {
-
-        int count = 0;
-        if (this.roundEntries.length() > 0) {
-            int[] newDate = { month, day, year };
-            while (count < this.roundEntries.length() && this.compareRoundDate(
-                    this.roundEntries.entry(count).getDate(), newDate,
-                    this.roundEntries.entry(count).getID(), id) < 0) {
-                count++;
-            }
-        }
-        this.roundEntries.add(count,
-                new Round(strokes, holesPlayed, month, day, year, id, course));
-    }
-
-    /*
-     * Helper method to compare dates -- assume dates are [M, D, Y] Should I do
-     * a custom comparator and use SortingMachine instead?
+    /**
+     * Return the best round by diff in the tracker.
+     *
+     * @return the round with the lowest differential
+     * @requires number of rounds in this > 0
+     * @ensures bestRound = round with least differential in this
      */
-    private int compareRoundDate(int[] date1, int[] date2, int id1, int id2) {
-        int result = 0;
-        if (date2[2] - date1[2] != 0) { // year
-            result = date2[2] - date1[2];
-        } else if (date2[0] - date1[0] != 0) { // month
-            result = date2[0] - date1[0];
-        } else if (date2[1] - date1[1] != 0) {
-            result = date2[1] - date1[1];
-        } else {
-            result = id2 - id1;
-        }
+    Round bestRound();
 
-        return result;
-
-    }
-
-    /*
-     * Remove a round from the tracker with PRECONDITION: round is in
-     * this.roundEntries
+    /**
+     * Return the average differential in the tracker.
+     *
+     * @return the average differential of all rounds in this
+     * @requires number of rounds in this > 0
+     * @ensures averageDiff = mean differential of all Rounds in this
      */
-    public void deleteRound(GolfTracker.Round round) {
-        // Could implement with binary search eventually b/c of ordering
-        int count = 0;
-        while (!this.roundEntries.entry(count).equals(round)) {
-            count++;
-        }
+    double averageDiff();
 
-        this.roundEntries.remove(count);
-    }
-
-    /* Get the roundEntries Set of all Rounds in the tracker */
-    public Sequence<GolfTracker.Round> getAllRounds() {
-        return this.roundEntries;
-    }
-
-    public int numRounds() {
-        return this.roundEntries.length();
-    }
-
-    /*
-     * Use USGA handicap calculation -- PRECONDITION: At least 3 rounds in
-     * this.roundEntries
+    /**
+     * Return the average score for rounds with given holes played in the
+     * tracker.
+     *
+     * @param holesPlayed
+     *            the number of holes played for which the average score is to
+     *            be calculated
+     * @return the average score of all rounds in this
+     * @requires number of rounds in this > 0
+     * @ensures averageScore = mean score of all Rounds in this
      */
-    public double calculateHandicap() {
-        double handicap = 0;
-        if (this.roundEntries.length() >= 20) {
-            handicap = this.averageLowestXOfNDiffs(8, 20);
-        } else if (this.roundEntries.length() == 19) {
-            handicap = this.averageLowestXOfNDiffs(7,
-                    this.roundEntries.length());
-        } else if (this.roundEntries.length() >= 18) {
-            handicap = this.averageLowestXOfNDiffs(6,
-                    this.roundEntries.length());
-        } else if (this.roundEntries.length() >= 15) {
-            handicap = this.averageLowestXOfNDiffs(5,
-                    this.roundEntries.length());
-        } else if (this.roundEntries.length() >= 12) {
-            handicap = this.averageLowestXOfNDiffs(4,
-                    this.roundEntries.length());
-        } else if (this.roundEntries.length() >= 9) {
-            handicap = this.averageLowestXOfNDiffs(3,
-                    this.roundEntries.length());
-        } else if (this.roundEntries.length() >= 7) {
-            handicap = this.averageLowestXOfNDiffs(2,
-                    this.roundEntries.length());
-        } else if (this.roundEntries.length() == 6) {
-            handicap = this.averageLowestXOfNDiffs(2,
-                    this.roundEntries.length()) - 1.0;
-        } else if (this.roundEntries.length() == 5) {
-            handicap = this.averageLowestXOfNDiffs(1,
-                    this.roundEntries.length());
-        } else if (this.roundEntries.length() == 4) {
-            handicap = this.averageLowestXOfNDiffs(1,
-                    this.roundEntries.length()) - 1.0;
-        } else if (this.roundEntries.length() == 3) {
-            handicap = this.averageLowestXOfNDiffs(1,
-                    this.roundEntries.length()) - 2.0;
-        }
+    double averageScore(int holesPlayed);
 
-        return handicap;
-    }
+    /**
+     * Returns the Sequence of all rounds played at the given course.
+     *
+     * @param course
+     *            the course to get the rounds at
+     * @return Sequence of Rounds played the given Course
+     * @requires number of rounds played at course > 0
+     * @ensures roundsAtCourse = Sequence of all Rounds played at course
+     */
+    Sequence<Round> roundsAtCourse(Course course);
 
-    // Helper for handicap calc -- avg lowest x diffs of last n rounds
-    // Handicaps always rounded to nearest tenth
-    private double averageLowestXOfNDiffs(int x, int n) {
-        double[] diffs = new double[n];
-
-        int count = 0;
-        for (int i = this.roundEntries.length() - 1; i >= this.roundEntries
-                .length() - n; i--) {
-            diffs[count] = this.roundEntries.entry(i).getDiff();
-            count++;
-        }
-
-        Arrays.sort(diffs);
-        double sum = 0;
-        for (int i = 0; i < x; i++) {
-            sum += diffs[i];
-        }
-
-        double handicap = sum / x;
-        return Math.round(handicap * 10.0) / 10.0;
-    }
-
-    public static void main(String[] args) {
-        SimpleWriter out = new SimpleWriter1L();
-        SimpleReader in = new SimpleReader1L();
-
-        GolfTracker tracker = new GolfTracker();
-
-        out.println(
-                "Add a round? Press ENTER to continue or type anything else to quit.");
-        while (in.nextLine().equals("")) {
-            out.print("Round year: ");
-            int year = in.nextInteger();
-            out.print("Round month: ");
-            int month = in.nextInteger();
-            out.print("Round day: ");
-            int day = in.nextInteger();
-            out.print("Course name: ");
-            String courseName = in.nextLine();
-            out.print("Score: ");
-            int score = in.nextInteger();
-            out.print("Holes played (9 or 18): ");
-            int holesPlayed = in.nextInteger();
-            out.print("Course rating: ");
-            double rating = in.nextDouble();
-            out.print("Course slope: ");
-            double slope = in.nextDouble();
-
-            GolfTracker.Course nextCourse = new GolfTracker.Course(courseName,
-                    rating, slope);
-            tracker.addRound(score, holesPlayed, month, day, year, 0,
-                    nextCourse); // Assume no rounds on same day for the POC
-            out.println(
-                    "Add another round? Press ENTER to continue or type anything else to quit.");
-        }
-
-        out.println("Rounds added: " + tracker.getAllRounds());
-        out.println("Still need to override toString");
-        if (tracker.numRounds() >= 3) {
-            out.println("Your handicap: " + tracker.calculateHandicap());
-        }
-
-        out.close();
-        in.close();
-    }
-
-    public class Round {
-
-        /*
-         * A Round consists of "strokes" shot at "course" where "holesPlayed"
-         * holes are played on date "month"/"day"/"year" at "course". id handles
-         * when multiple rounds played on same day and course (0 = first, 1 =
-         * second)
-         */
-        private int strokes, holesPlayed, month, day, year, id;
-        private double differential;
-        private GolfTracker.Course course;
-
-        /* Numerator for slope's contribution to the differential calculation */
-        public static final double SLOPE_CONSTANT = 113.0;
-
-        public Round(int strokes, int holesPlayed, int month, int day, int year,
-                int id, GolfTracker.Course course) {
-            this.strokes = strokes;
-            this.holesPlayed = holesPlayed;
-            this.month = month;
-            this.day = day;
-            this.year = year;
-            this.id = id;
-            this.course = course;
-
-            this.differential = calculateDifferential(strokes,
-                    course.getRating(), course.getSlope());
-        }
-
-        /*
-         * Helper to calculate handicap differential (diffs are always rounded
-         * to tenths place) -- should this be public or private?
-         */
-        private static double calculateDifferential(int score, double rating,
-                double slope) {
-            return Math
-                    .round(((SLOPE_CONSTANT / slope) * (score - rating)) * 10.0)
-                    / 10.0;
-        }
-
-        /* Get the score for this */
-        public int getScore() {
-            return this.strokes;
-        }
-
-        /* Get the number of holes played for this */
-        public int getHolesPlayed() {
-            return this.holesPlayed;
-        }
-
-        /* Get the date this was played as the array [M, D, Y] */
-        public int[] getDate() {
-            int[] date = { this.month, this.day, this.year };
-            return date;
-        }
-
-        /* Get which round in the day this is */
-        public int getID() {
-            return this.id;
-        }
-
-        public double getDiff() {
-            return this.differential;
-        }
-
-        /* Get the Course this was played at */
-        public GolfTracker.Course getCourse() {
-            return this.course;
-        }
-    }
-
-    static public class Course {
-
-        /*
-         * A Course has name "name" and is rated "rating" with a slope rating of
-         * "slope"
-         */
-        private double rating, slope;
-        private String name;
-
-        public Course(String name, double rating, double slope) {
-            this.name = name;
-            this.rating = rating;
-            this.slope = slope;
-        }
-
-        /* Get the course rating of this */
-        public double getRating() {
-            return this.rating;
-        }
-
-        /* Get the slope rating of this */
-        public double getSlope() {
-            return this.slope;
-        }
-
-        /* Get the name of this */
-        public String getName() {
-            return this.name;
-        }
-
-    }
-
+    /**
+     * Intended to allow for editing of rounds. Replaces a round in the tracker
+     * with the new round.
+     *
+     * @param oldRound
+     *            the old round to be removed
+     * @param newRound
+     *            the new round to be added
+     * @requires oldRound is a Round in this
+     * @ensures oldRound is not in this and newRound is in this
+     * @updates this
+     */
+    void replaceRound(Round oldRound, Round newRound);
 }
