@@ -24,6 +24,7 @@ public interface GolfTracker extends GolfTrackerKernel {
      * @return the round with the lowest differential
      * @requires number of rounds in this > 0
      * @ensures bestRound = round with least differential in this
+     * @aliases bestRound
      */
     Round bestRound();
 
@@ -69,7 +70,7 @@ public interface GolfTracker extends GolfTrackerKernel {
      * @param newRound
      *            the new round to be added
      * @requires oldRound is a Round in this
-     * @ensures oldRound is not in this and newRound is in this
+     * @ensures oldRound is not in this and copy of newRound is in this
      * @updates this
      */
     void replaceRound(Round oldRound, Round newRound);

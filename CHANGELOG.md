@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
+## 2026.31.03
+
+### Added
+
+- Implemented enhanced methods for GolfTracker component
+
+### Updated
+
+- Updated Javadoc description of replaceRound to reflect actual behavior (adds a copy of newRound, not the actual passed newRound)
+
 ## 2026.09.03
 
 ### Added
