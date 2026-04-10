@@ -141,13 +141,19 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
 
     @Override
     public boolean equals(Object compared) {
-        Sequence<Round> thisTrackerRounds = this.getAllRounds();
-        if (compared instanceof GolfTracker) {
-            Sequence<Round> comparedTrackerRounds = ((GolfTracker) compared)
-                    .getAllRounds();
-            return thisTrackerRounds.equals(comparedTrackerRounds);
-        } else {
+        if (this == compared) {
+            return true;
+        }
+        if (compared == null) {
             return false;
         }
+        if (!(compared instanceof GolfTracker)) {
+            return false;
+        }
+
+        Sequence<Round> thisTrackerRounds = this.getAllRounds();
+        Sequence<Round> comparedTrackerRounds = ((GolfTracker) compared)
+                .getAllRounds();
+        return thisTrackerRounds.equals(comparedTrackerRounds);
     }
 }
