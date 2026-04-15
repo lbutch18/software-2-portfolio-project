@@ -6,7 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
-## 2026.31.03
+## 2026.04.14
+
+### Added
+
+- Designed kernel implementation for GolfTracker component (GolfTrackerOnSequence)
+- Implemented Round nested class and Course nested record
+
+### Updated
+
+- Updated implementation of equals() for GolfTracker to reflect proper practice introduced in class
+
+## 2026.03.31
 
 ### Added
 

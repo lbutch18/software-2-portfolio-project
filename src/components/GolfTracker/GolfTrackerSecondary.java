@@ -2,8 +2,8 @@ package components.GolfTracker;
 
 import java.util.Arrays;
 
-import components.GolfTracker.GolfTracker1.Course;
-import components.GolfTracker.GolfTracker1.Round;
+import components.GolfTracker.GolfTrackerOnSequence.Course;
+import components.GolfTracker.GolfTrackerOnSequence.Round;
 import components.sequence.Sequence;
 
 public abstract class GolfTrackerSecondary implements GolfTracker {
@@ -141,6 +141,13 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
 
     @Override
     public boolean equals(Object compared) {
+        if (compared == null) {
+            return false;
+        }
+        if (this == compared) {
+            return true;
+        }
+
         Sequence<Round> thisTrackerRounds = this.getAllRounds();
         if (compared instanceof GolfTracker) {
             Sequence<Round> comparedTrackerRounds = ((GolfTracker) compared)
