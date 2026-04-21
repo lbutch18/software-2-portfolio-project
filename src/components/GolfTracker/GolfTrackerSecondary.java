@@ -6,6 +6,9 @@ import components.GolfTracker.GolfTracker1.Course;
 import components.GolfTracker.GolfTracker1.Round;
 import components.sequence.Sequence;
 
+/**
+ * Provides enhanced methods on top of the kernel methods for GolfTracker.
+ */
 public abstract class GolfTrackerSecondary implements GolfTracker {
 
     /**
