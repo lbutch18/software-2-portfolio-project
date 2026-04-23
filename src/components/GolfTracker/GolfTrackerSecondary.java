@@ -2,8 +2,8 @@ package components.GolfTracker;
 
 import java.util.Arrays;
 
-import components.GolfTracker.GolfTracker1.Course;
-import components.GolfTracker.GolfTracker1.Round;
+import components.GolfTracker.GolfTrackerOnSequence.Course;
+import components.GolfTracker.GolfTrackerOnSequence.Round;
 import components.sequence.Sequence;
 
 /**
