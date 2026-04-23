@@ -278,4 +278,54 @@ public class GolfTrackerOnSequenceTest {
         assertEquals(expectedTracker, actualTracker);
     }
 
+    @Test
+    public void testClear() {
+        GolfTracker actual = new GolfTrackerOnSequence();
+        GolfTracker expected = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+
+        // do some stuff
+        actual.addRound(72, 18, 5, 5, 2026, 1, osu);
+        actual.addRound(72, 18, 5, 5, 2026, 2, osu);
+        actual.deleteRound(new Round(72, 18, 5, 5, 2026, 1, osu));
+
+        actual.clear();
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void testNewInstance() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedTracker = new GolfTrackerOnSequence();
+
+        GolfTracker newTracker = actualTracker.newInstance();
+
+        assertEquals(expectedTracker, actualTracker);
+        assertEquals(expectedTracker, newTracker);
+        assertTrue(newTracker instanceof GolfTrackerOnSequence);
+
+    }
+
+    @Test
+    public void testTransferFromEmpty() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedActualTracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+
+        actualTracker.addRound(72, 18, 5, 5, 2026, 1, osu);
+        actualTracker.addRound(72, 18, 5, 5, 2026, 2, osu);
+
+        GolfTracker newTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedNewTracker = new GolfTrackerOnSequence();
+        expectedNewTracker.addRound(72, 18, 5, 5, 2026, 1, osu);
+        expectedNewTracker.addRound(72, 18, 5, 5, 2026, 2, osu);
+
+        newTracker.transferFrom(actualTracker);
+
+        assertEquals(expectedActualTracker, actualTracker);
+        assertEquals(expectedNewTracker, newTracker);
+    }
+
 }

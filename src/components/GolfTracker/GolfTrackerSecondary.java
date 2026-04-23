@@ -92,34 +92,42 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
             average += allRounds.entry(i).getDiff();
         }
 
+        average /= allRounds.length();
+
         return average;
     }
 
     @Override
     public double averageScore(int holesPlayed) {
         Sequence<Round> allRounds = this.getAllRounds();
-        double average = 0;
 
+        double average = 0;
+        int count = 0;
         for (int i = 0; i < allRounds.length(); i++) {
             if (allRounds.entry(i).getHolesPlayed() == holesPlayed) {
                 average += allRounds.entry(i).getScore();
+                count++;
             }
         }
+
+        average /= count;
 
         return average;
     }
 
     @Override
     public Sequence<Round> roundsAtCourse(Course course) {
-        Sequence<Round> rounds = this.getAllRounds();
+        Sequence<Round> allRounds = this.getAllRounds();
+        Sequence<Round> roundsAtCourse = allRounds.newInstance();
 
-        for (int i = 0; i < rounds.length(); i++) {
-            if (!rounds.entry(i).getCourse().equals(course)) {
-                rounds.remove(i);
+        for (int i = 0; i < allRounds.length(); i++) {
+            Round currentRound = allRounds.entry(i);
+            if (currentRound.getCourse().equals(course)) {
+                roundsAtCourse.add(roundsAtCourse.length(), currentRound);
             }
         }
 
-        return rounds;
+        return roundsAtCourse;
     }
 
     @Override

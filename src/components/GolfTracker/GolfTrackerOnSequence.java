@@ -133,7 +133,7 @@ public class GolfTrackerOnSequence extends GolfTrackerSecondary {
     /**
      * No-argument constructor.
      */
-    GolfTrackerOnSequence() {
+    public GolfTrackerOnSequence() {
         this.createNewRep();
     }
 
@@ -229,7 +229,6 @@ public class GolfTrackerOnSequence extends GolfTrackerSecondary {
 
     @Override
     public GolfTracker newInstance() {
-        // stole this from project code idk
         try {
             return (GolfTracker) this.getClass().getConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
@@ -245,16 +244,11 @@ public class GolfTrackerOnSequence extends GolfTrackerSecondary {
 
     @Override
     public void transferFrom(GolfTracker source) {
-        // also stole this from project code idk
         assert source != null : "Violation of: source is not null";
         assert source != this : "Violation of: source is not this";
         assert source instanceof GolfTrackerOnSequence : ""
-                + "Violation of: source is of dynamic type Set3<?>";
-        /*
-         * This cast cannot fail since the assert above would have stopped
-         * execution in that case: source must be of dynamic type Set3a<?>, and
-         * the ? must be T or the call would not have compiled.
-         */
+                + "Violation of: source is of dynamic type GolfTrackerOnSequence";
+
         GolfTrackerOnSequence localSource = (GolfTrackerOnSequence) source;
         this.roundEntries = localSource.roundEntries;
         localSource.createNewRep();
