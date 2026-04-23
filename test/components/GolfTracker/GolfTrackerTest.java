@@ -1,6 +1,8 @@
 package components.GolfTracker;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -140,6 +142,86 @@ public class GolfTrackerTest {
     }
 
     @Test
+    public void testCalculateHandicap0() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedTracker = new GolfTrackerOnSequence();
+
+        double actual = actualTracker.calculateHandicap();
+        double expected = 0;
+
+        assertEquals(expectedTracker, actualTracker);
+        assertEquals(expected, actual, 0.00001);
+    }
+
+    @Test
+    public void testCalculateHandicap1() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedTracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        actualTracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+        expectedTracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+
+        double actual = actualTracker.calculateHandicap();
+        double expected = 0;
+
+        assertEquals(expectedTracker, actualTracker);
+        assertEquals(expected, actual, 0.00001);
+    }
+
+    @Test
+    public void testCalculateHandicapMany() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedTracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        actualTracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+        expectedTracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+        actualTracker.addRound(75, 18, 4, 21, 2026, 1, osu);
+        expectedTracker.addRound(75, 18, 4, 21, 2026, 1, osu);
+        actualTracker.addRound(78, 18, 4, 22, 2026, 1, osu);
+        expectedTracker.addRound(78, 18, 4, 22, 2026, 1, osu);
+
+        double actual = actualTracker.calculateHandicap();
+        double expected = -2.0;
+
+        assertEquals(expectedTracker, actualTracker);
+        assertEquals(expected, actual, 0.00001);
+    }
+
+    @Test
+    public void testAverageDiff1() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedTracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        actualTracker.addRound(75, 18, 4, 20, 2026, 1, osu);
+        expectedTracker.addRound(75, 18, 4, 20, 2026, 1, osu);
+
+        double actual = actualTracker.averageDiff();
+        double expected = 2.8;
+
+        assertEquals(expectedTracker, actualTracker);
+        assertEquals(expected, actual, 0.00001);
+    }
+
+    @Test
+    public void testAverageDiffMany() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedTracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        actualTracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+        expectedTracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+        actualTracker.addRound(75, 18, 4, 21, 2026, 1, osu);
+        expectedTracker.addRound(75, 18, 4, 21, 2026, 1, osu);
+        actualTracker.addRound(78, 18, 4, 22, 2026, 1, osu);
+        expectedTracker.addRound(78, 18, 4, 22, 2026, 1, osu);
+
+        double actual = actualTracker.averageDiff();
+        double expected = 2.83333333333;
+
+        assertEquals(expectedTracker, actualTracker);
+        assertEquals(expected, actual, 0.00001);
+    }
+
+    @Test
     public void testRoundsAtCourseEmpty() {
         GolfTracker actualTracker = new GolfTrackerOnSequence();
         GolfTracker expectedTracker = new GolfTrackerOnSequence();
@@ -247,6 +329,159 @@ public class GolfTrackerTest {
                 new Round(73, 18, 4, 20, 2026, 1, osu));
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testToStringEmpty() {
+        GolfTracker tracker = new GolfTrackerOnSequence();
+        assertEquals("<>", tracker.toString());
+    }
+
+    @Test
+    public void testToStringOne() {
+        GolfTracker tracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+        assertEquals(
+                "<Round data:\n" + "Strokes: 72\n" + "Holes Played: 18\n"
+                        + "Date: 4/20/2026\n" + "ID: 1\n"
+                        + "Course: Course[name=OSU, rating=72.0, slope=120.0]>",
+                tracker.toString());
+    }
+
+    @Test
+    public void testToStringTwo() {
+        GolfTracker tracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker.addRound(75, 18, 4, 21, 2026, 1, osu);
+        assertEquals(
+                "<Round data:\nStrokes: 72\nHoles Played: 18\nDate: 4/20/2026\nID: 1\nCourse: Course[name=OSU, rating=72.0, slope=120.0],Round data:\nStrokes: 75\nHoles Played: 18\nDate: 4/21/2026\nID: 1\nCourse: Course[name=OSU, rating=72.0, slope=120.0]>",
+                tracker.toString());
+    }
+
+    @Test
+    public void testEqualsEmpty() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+
+        assertTrue(tracker1.equals(tracker2));
+        assertTrue(tracker2.equals(tracker1));
+    }
+
+    @Test
+    public void testEquals1True() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 20, 2026, 1, osu);
+
+        assertTrue(tracker1.equals(tracker2));
+        assertTrue(tracker2.equals(tracker1));
+    }
+
+    @Test
+    public void testEquals2True() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker1.addRound(75, 18, 4, 20, 2026, 2, osu);
+        tracker2.addRound(75, 18, 4, 20, 2026, 2, osu);
+
+        assertTrue(tracker1.equals(tracker2));
+        assertTrue(tracker2.equals(tracker1));
+    }
+
+    @Test
+    public void testEquals2False() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker1.addRound(75, 18, 4, 20, 2026, 2, osu);
+        tracker2.addRound(74, 18, 4, 20, 2026, 2, osu);
+
+        assertFalse(tracker1.equals(tracker2));
+        assertFalse(tracker2.equals(tracker1));
+    }
+
+    @Test
+    public void testEqualsMixedFalse() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker1.addRound(75, 18, 4, 20, 2026, 2, osu);
+
+        assertFalse(tracker1.equals(tracker2));
+        assertFalse(tracker2.equals(tracker1));
+    }
+
+    @Test
+    public void testEquals1False() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 21, 2026, 1, osu);
+
+        assertFalse(tracker1.equals(tracker2));
+        assertFalse(tracker2.equals(tracker1));
+    }
+
+    @Test
+    public void testHashcodeEmptySame() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+
+        assertEquals(tracker1.hashCode(), tracker2.hashCode());
+    }
+
+    @Test
+    public void testHashcode1Same() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 20, 2026, 1, osu);
+
+        assertEquals(tracker1.hashCode(), tracker2.hashCode());
+    }
+
+    @Test
+    public void testHashcode2Same() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker1.addRound(75, 18, 4, 20, 2026, 2, osu);
+        tracker2.addRound(75, 18, 4, 20, 2026, 2, osu);
+
+        assertEquals(tracker1.hashCode(), tracker2.hashCode());
+    }
+
+    @Test
+    public void testHashcode3Same() {
+        GolfTracker tracker1 = new GolfTrackerOnSequence();
+        GolfTracker tracker2 = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+        Course raymond = new Course("Raymond Memorial Front", 36.2, 118);
+
+        tracker1.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker1.addRound(37, 9, 4, 20, 2026, 2, raymond);
+        tracker1.addRound(78, 18, 4, 21, 2026, 1, osu);
+        tracker2.addRound(78, 18, 4, 21, 2026, 1, osu);
+        tracker2.addRound(72, 18, 4, 20, 2026, 1, osu);
+        tracker2.addRound(37, 9, 4, 20, 2026, 2, raymond);
+
+        assertTrue(tracker1.equals(tracker2));
+        assertEquals(tracker1.hashCode(), tracker2.hashCode());
     }
 
 }

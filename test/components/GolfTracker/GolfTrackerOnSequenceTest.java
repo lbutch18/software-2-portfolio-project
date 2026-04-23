@@ -309,7 +309,7 @@ public class GolfTrackerOnSequenceTest {
     }
 
     @Test
-    public void testTransferFromEmpty() {
+    public void testTransferFrom2() {
         GolfTracker actualTracker = new GolfTrackerOnSequence();
         GolfTracker expectedActualTracker = new GolfTrackerOnSequence();
         Course osu = new Course("OSU", 72, 120);
@@ -321,6 +321,21 @@ public class GolfTrackerOnSequenceTest {
         GolfTracker expectedNewTracker = new GolfTrackerOnSequence();
         expectedNewTracker.addRound(72, 18, 5, 5, 2026, 1, osu);
         expectedNewTracker.addRound(72, 18, 5, 5, 2026, 2, osu);
+
+        newTracker.transferFrom(actualTracker);
+
+        assertEquals(expectedActualTracker, actualTracker);
+        assertEquals(expectedNewTracker, newTracker);
+    }
+
+        @Test
+    public void testTransferFromEmpty() {
+        GolfTracker actualTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedActualTracker = new GolfTrackerOnSequence();
+        Course osu = new Course("OSU", 72, 120);
+
+        GolfTracker newTracker = new GolfTrackerOnSequence();
+        GolfTracker expectedNewTracker = new GolfTrackerOnSequence();
 
         newTracker.transferFrom(actualTracker);
 

@@ -13,9 +13,9 @@ import components.sequence.Sequence1L;
  *
  * @author Luke Butcher
  */
-public class GolfTrackerOnSequence extends GolfTrackerSecondary {
+public final class GolfTrackerOnSequence extends GolfTrackerSecondary {
 
-    /** Private representation */
+    /** Private representation. */
     private Sequence<Round> roundEntries;
 
     public static class Round {

@@ -72,7 +72,7 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public Round bestRound() {
+    public final Round bestRound() {
         Sequence<Round> allRounds = this.getAllRounds();
         Round best = allRounds.entry(0);
         for (int i = 1; i < allRounds.length(); i++) {
@@ -85,7 +85,7 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public double averageDiff() {
+    public final double averageDiff() {
         Sequence<Round> allRounds = this.getAllRounds();
         double average = 0;
         for (int i = 0; i < allRounds.length(); i++) {
@@ -98,7 +98,7 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public double averageScore(int holesPlayed) {
+    public final double averageScore(int holesPlayed) {
         Sequence<Round> allRounds = this.getAllRounds();
 
         double average = 0;
@@ -116,7 +116,7 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public Sequence<Round> roundsAtCourse(Course course) {
+    public final Sequence<Round> roundsAtCourse(Course course) {
         Sequence<Round> allRounds = this.getAllRounds();
         Sequence<Round> roundsAtCourse = allRounds.newInstance();
 
@@ -131,7 +131,7 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public void replaceRound(Round oldRound, Round newRound) {
+    public final void replaceRound(Round oldRound, Round newRound) {
         this.deleteRound(oldRound);
         this.addRound(newRound.getScore(), newRound.getHolesPlayed(),
                 newRound.getDate()[0], newRound.getDate()[1],
@@ -139,19 +139,19 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         Sequence<Round> allRounds = this.getAllRounds();
         return allRounds.toString();
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         Sequence<Round> allRounds = this.getAllRounds();
         return allRounds.hashCode();
     }
 
     @Override
-    public boolean equals(Object compared) {
+    public final boolean equals(Object compared) {
         Sequence<Round> thisTrackerRounds = this.getAllRounds();
         if (compared instanceof GolfTracker) {
             Sequence<Round> comparedTrackerRounds = ((GolfTracker) compared)
