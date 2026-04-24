@@ -1,7 +1,7 @@
 package components.GolfTracker;
 
-import components.GolfTracker.GolfTracker1.Course;
-import components.GolfTracker.GolfTracker1.Round;
+import components.GolfTracker.GolfTrackerOnSequence.Course;
+import components.GolfTracker.GolfTrackerOnSequence.Round;
 import components.sequence.Sequence;
 import components.standard.Standard;
 
@@ -62,4 +62,13 @@ public interface GolfTrackerKernel extends Standard<GolfTracker> {
      * @ensures numRounds = size of the tracker
      */
     int numRounds();
+
+    /**
+     * Returns true if round is in this, false otherwise.
+     *
+     * @param round
+     *            the round to check
+     * @return whether
+     */
+    boolean contains(Round round);
 }

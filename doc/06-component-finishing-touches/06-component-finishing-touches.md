@@ -1,8 +1,8 @@
 # Portfolio Part 6: Finishing Touches
 
-- **Name**: <!-- TODO: fill with first and last name (e.g., Brutus Buckeye) and delete this comment -->
-- **Dot Number**: <!-- TODO: fill with OSU dot number (e.g., buckeye.17) and delete this comment -->
-- **Due Date**: <!-- TODO: fill out with due date and time (e.g., 10/17 @ 3:10 PM EST) and delete this comment -->
+- **Name**: Luke Butcher
+- **Dot Number**: butcher.284
+- **Due Date**: 4/24 @ 12:40 PM
 
 ## Assignment Overview
 
@@ -49,8 +49,6 @@ Many of these additional techniques are somewhat out of the scope of this
 course, but just knowing about them could set you up for long term success.
 
 ## Assignment Checklist
-
-<!-- TODO: browse the checklist then delete this comment -->
 
 To be sure you have completed everything on this assignment, we have littered
 this document with TODO comments. You can browse all of them in VSCode by
@@ -140,8 +138,6 @@ merges, you will need to pull the changes from main into your current branch
 to see them. If you don't like this workflow, you may try following the
 rebase strategies described [here](https://stackoverflow.com/questions/35790561/working-while-waiting-for-pending-pr)
 and [here](https://stackoverflow.com/questions/18021888/continue-working-on-a-git-branch-after-making-a-pull-request).
-
-<!-- TODO: make a new branch from main then delete this comment -->
 
 ## Assignment Tasks
 
@@ -307,18 +303,25 @@ Take some time to fill them out honestly.
 > complete the portfolio project, how much better (or worse) do you think you
 > understand software development and why?
 
-<!-- TODO: discuss -->
+The project definitely helped me get a better handle on Java, but mostly helped
+me develop my ability to think like an engineer when designing the component. Though
+I feel I gained a lot, it definitely exposed some gaps in my knowledge and I have
+a long way to go before I can be a high-quality engineer.
 
 > Also, did the portfolio project surface any gaps in your own knowledge of
 > software development. If so, what are those gaps and how did you address them?
 
-<!-- TODO: discuss -->
+I definitely felt like I had some gaps in my Java knowledge, especially when it
+came to testing methods that aren't as clean as those we learned in class. I also
+was a bit unsure of some object-oriented principles like where to put nested classes.
 
 > Finally, as a part of completing the portfolio project, to what extent has
 > your perspective of software development changed, if at all? In other words,
 > is software development something you still enjoy? If not, why not?
 
-<!-- TODO: discuss -->
+I would say software development is something I still enjoy, but I will say that
+I definitely found some parts to be boring and unrewarding, like writing test
+cases and documentation.
 
 > One of the challenges of completing the portfolio project is picking up a lot
 > of skills on your own. Some of these skills are, of course, software skills.
@@ -326,25 +329,32 @@ Take some time to fill them out honestly.
 > this process. Therefore, the first question is what skills did you pick up
 > through this process?
 
-<!-- TODO: discuss -->
+I definitely got more confident with my Java skills. I also got better at designing
+components and learned more best practices that will help me in the future.
 
 > The follow-up question is: could you rephrase these skills you picked up
 > as bullet points that you could put on a resume? Try it below.
 
-<!-- TODO: discuss -->
-
+- Designed a Java component from scratch to track golf rounds with support for
+USGA handicap calculation and analysis
+- Used object-oriented programming principles such as abstract classes to cleanly seperate methods needing a concrete representation from secondary methods that build on the basic kernel methods
 > Next, how has working on this project affected your career trajectory?
 > In other words, do you now hate the topic you picked? Or, are you even more
 > interested in it? Both outcomes are valuable to your personal development.
 
-<!-- TODO: discuss -->
+I'm not entirely sure the topic I picked is super relevant to my future career,
+but I would say I am interested in it still and want to continue my journey in
+computer science.
 
 > Finally, consider the skills you've picked up and your current career
 > trajectory. What are some things you could do to continue on your
 > career trajectory? Also, who are some mentors you could contact to help
 > you stay on your path?
 
-<!-- TODO: discuss -->
+I would like to reach out to some professors with the goal of eventually getting
+an undergrad research position, preferably in AI, and industry professionals in the field.
+I'm planning on doing a data analytics internship this summer, so I'm hoping to
+find some mentors there who can help me progess as well.
 
 ### Changelog
 
@@ -373,7 +383,6 @@ the following form: YYYY.0M.0D.
 ### Updated
 
 - Changed design to include ...
-
 ```
 
 Here `YYYY.MM.DD` would be the date of your submission, such as 2024.04.21.
@@ -383,8 +392,6 @@ like to accomplish that, you will need to make GitHub releases after each pull
 request merge (or at least tag your commits). This is not required.
 
 ### Submission
-
-<!-- TODO: read the submission instructions then delete this comment -->
 
 Assuming that your project is in a GitHub repo somewhere and your changes are on
 a proof-of-concept branch, then what we'll want you to do is create a pull
