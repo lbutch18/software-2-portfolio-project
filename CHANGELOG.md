@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
+## 2026.24.04
+
+### Added
+
+- Designed test suite for GolfTracker component
+- Designed two different use cases for GolfTracker component
+
 ## 2026.31.03
 
 ### Added
