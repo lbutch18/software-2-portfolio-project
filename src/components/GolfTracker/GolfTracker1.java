@@ -20,7 +20,7 @@ public class GolfTracker1 {
      * ordered with the most recent (by date, then ID) rounds at the end of the
      * Sequence
      */
-    private Sequence<GolfTracker1.Round> roundEntries;
+    private Sequence<Round> roundEntries;
 
     /* initialize this.roundEntries to be empty */
     public GolfTracker1() {
@@ -45,8 +45,7 @@ public class GolfTracker1 {
     }
 
     /*
-     * Helper method to compare dates -- assume dates are [M, D, Y] Should I do
-     * a custom comparator and use SortingMachine instead?
+     * Helper method to compare dates.
      */
     private int compareRoundDate(int[] date1, int[] date2, int id1, int id2) {
         int result = 0;
@@ -68,7 +67,7 @@ public class GolfTracker1 {
      * Remove a round from the tracker with PRECONDITION: round is in
      * this.roundEntries
      */
-    public void deleteRound(GolfTracker1.Round round) {
+    public void deleteRound(Round round) {
         // Could implement with binary search eventually b/c of ordering
         int count = 0;
         while (!this.roundEntries.entry(count).equals(round)) {
@@ -79,7 +78,7 @@ public class GolfTracker1 {
     }
 
     /* Get the roundEntries Set of all Rounds in the tracker */
-    public Sequence<GolfTracker1.Round> getAllRounds() {
+    public Sequence<Round> getAllRounds() {
         return this.roundEntries;
     }
 

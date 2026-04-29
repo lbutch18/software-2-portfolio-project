@@ -1,7 +1,7 @@
 package components.GolfTracker;
 
-import components.GolfTracker.GolfTracker1.Course;
-import components.GolfTracker.GolfTracker1.Round;
+import components.GolfTracker.GolfTrackerOnSequence.Course;
+import components.GolfTracker.GolfTrackerOnSequence.Round;
 import components.sequence.Sequence;
 
 /**
@@ -73,5 +73,5 @@ public interface GolfTracker extends GolfTrackerKernel {
      * @ensures oldRound is not in this and copy of newRound is in this
      * @updates this
      */
-    void replaceRound(Round oldRound, Round newRound);
+    void replaceRound(Round oldRound, GolfTrackerOnSequence.Round newRound);
 }
