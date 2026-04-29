@@ -6,6 +6,9 @@ import components.GolfTracker.GolfTrackerOnSequence.Course;
 import components.GolfTracker.GolfTrackerOnSequence.Round;
 import components.sequence.Sequence;
 
+/**
+ * Provides enhanced methods on top of the kernel methods for GolfTracker.
+ */
 public abstract class GolfTrackerSecondary implements GolfTracker {
 
     /**
@@ -69,7 +72,7 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public Round bestRound() {
+    public final Round bestRound() {
         Sequence<Round> allRounds = this.getAllRounds();
         Round best = allRounds.entry(0);
         for (int i = 1; i < allRounds.length(); i++) {
@@ -82,45 +85,53 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public double averageDiff() {
+    public final double averageDiff() {
         Sequence<Round> allRounds = this.getAllRounds();
         double average = 0;
         for (int i = 0; i < allRounds.length(); i++) {
             average += allRounds.entry(i).getDiff();
         }
 
+        average /= allRounds.length();
+
         return average;
     }
 
     @Override
-    public double averageScore(int holesPlayed) {
+    public final double averageScore(int holesPlayed) {
         Sequence<Round> allRounds = this.getAllRounds();
-        double average = 0;
 
+        double average = 0;
+        int count = 0;
         for (int i = 0; i < allRounds.length(); i++) {
             if (allRounds.entry(i).getHolesPlayed() == holesPlayed) {
                 average += allRounds.entry(i).getScore();
+                count++;
             }
         }
+
+        average /= count;
 
         return average;
     }
 
     @Override
-    public Sequence<Round> roundsAtCourse(Course course) {
-        Sequence<Round> rounds = this.getAllRounds();
+    public final Sequence<Round> roundsAtCourse(Course course) {
+        Sequence<Round> allRounds = this.getAllRounds();
+        Sequence<Round> roundsAtCourse = allRounds.newInstance();
 
-        for (int i = 0; i < rounds.length(); i++) {
-            if (!rounds.entry(i).getCourse().equals(course)) {
-                rounds.remove(i);
+        for (int i = 0; i < allRounds.length(); i++) {
+            Round currentRound = allRounds.entry(i);
+            if (currentRound.getCourse().equals(course)) {
+                roundsAtCourse.add(roundsAtCourse.length(), currentRound);
             }
         }
 
-        return rounds;
+        return roundsAtCourse;
     }
 
     @Override
-    public void replaceRound(Round oldRound, Round newRound) {
+    public final void replaceRound(Round oldRound, Round newRound) {
         this.deleteRound(oldRound);
         this.addRound(newRound.getScore(), newRound.getHolesPlayed(),
                 newRound.getDate()[0], newRound.getDate()[1],
@@ -128,26 +139,25 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         Sequence<Round> allRounds = this.getAllRounds();
         return allRounds.toString();
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         Sequence<Round> allRounds = this.getAllRounds();
         return allRounds.hashCode();
     }
 
     @Override
-    public boolean equals(Object compared) {
+    public final boolean equals(Object compared) {
         if (compared == null) {
             return false;
         }
         if (this == compared) {
             return true;
         }
-
         Sequence<Round> thisTrackerRounds = this.getAllRounds();
         if (compared instanceof GolfTracker) {
             Sequence<Round> comparedTrackerRounds = ((GolfTracker) compared)

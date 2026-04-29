@@ -13,12 +13,12 @@ import components.sequence.Sequence1L;
  *
  * @author Luke Butcher
  */
-public class GolfTrackerOnSequence implements GolfTrackerKernel {
+public final class GolfTrackerOnSequence extends GolfTrackerSecondary {
 
-    /** Private representation */
+    /** Private representation. */
     private Sequence<Round> roundEntries;
 
-    public class Round {
+    public static class Round {
 
         /*
          * A Round consists of "strokes" shot at "course" where "holesPlayed"
@@ -133,7 +133,7 @@ public class GolfTrackerOnSequence implements GolfTrackerKernel {
     /**
      * No-argument constructor.
      */
-    GolfTrackerOnSequence() {
+    public GolfTrackerOnSequence() {
         this.createNewRep();
     }
 
@@ -151,9 +151,9 @@ public class GolfTrackerOnSequence implements GolfTrackerKernel {
         int count = 0;
         if (this.roundEntries.length() > 0) {
             int[] newDate = { month, day, year };
-            while (count < this.roundEntries.length() && this.compareRoundDate(
+            while (count < this.roundEntries.length() && compareRoundDate(
                     this.roundEntries.entry(count).getDate(), newDate,
-                    this.roundEntries.entry(count).getID(), id) < 0) {
+                    this.roundEntries.entry(count).getID(), id) > 0) {
                 count++;
             }
         }
@@ -182,11 +182,8 @@ public class GolfTrackerOnSequence implements GolfTrackerKernel {
 
     }
 
-    // tried to use binary search, do you mind looking over the logic?
     @Override
     public void deleteRound(Round round) {
-        int[] roundDate = round.getDate();
-
         int low = 0;
         int high = this.roundEntries.length() - 1;
         boolean found = false;
@@ -196,9 +193,9 @@ public class GolfTrackerOnSequence implements GolfTrackerKernel {
             int compareResult = compareRoundDate(currentRound.getDate(),
                     round.getDate(), currentRound.getID(), round.getID());
 
-            if (compareResult < 0) {
+            if (compareResult > 0) {
                 low = entry + 1;
-            } else if (compareResult > 0) {
+            } else if (compareResult < 0) {
                 high = entry - 1;
             } else {
                 found = true;
@@ -232,7 +229,6 @@ public class GolfTrackerOnSequence implements GolfTrackerKernel {
 
     @Override
     public GolfTracker newInstance() {
-        // stole this from project code idk
         try {
             return (GolfTracker) this.getClass().getConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
@@ -248,16 +244,11 @@ public class GolfTrackerOnSequence implements GolfTrackerKernel {
 
     @Override
     public void transferFrom(GolfTracker source) {
-        // also stole this from project code idk
         assert source != null : "Violation of: source is not null";
         assert source != this : "Violation of: source is not this";
         assert source instanceof GolfTrackerOnSequence : ""
-                + "Violation of: source is of dynamic type Set3<?>";
-        /*
-         * This cast cannot fail since the assert above would have stopped
-         * execution in that case: source must be of dynamic type Set3a<?>, and
-         * the ? must be T or the call would not have compiled.
-         */
+                + "Violation of: source is of dynamic type GolfTrackerOnSequence";
+
         GolfTrackerOnSequence localSource = (GolfTrackerOnSequence) source;
         this.roundEntries = localSource.roundEntries;
         localSource.createNewRep();
