@@ -73,5 +73,5 @@ public interface GolfTracker extends GolfTrackerKernel {
      * @ensures oldRound is not in this and copy of newRound is in this
      * @updates this
      */
-    void replaceRound(Round oldRound, Round newRound);
+    void replaceRound(Round oldRound, GolfTrackerOnSequence.Round newRound);
 }

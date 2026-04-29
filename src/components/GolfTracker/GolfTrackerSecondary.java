@@ -152,6 +152,12 @@ public abstract class GolfTrackerSecondary implements GolfTracker {
 
     @Override
     public final boolean equals(Object compared) {
+        if (compared == null) {
+            return false;
+        }
+        if (this == compared) {
+            return true;
+        }
         Sequence<Round> thisTrackerRounds = this.getAllRounds();
         if (compared instanceof GolfTracker) {
             Sequence<Round> comparedTrackerRounds = ((GolfTracker) compared)

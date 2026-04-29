@@ -6,14 +6,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Calendar Versioning](https://calver.org/) of
 the following form: YYYY.0M.0D.
 
-## 2026.24.04
+## 2026.04.24
 
 ### Added
 
 - Designed test suite for GolfTracker component
 - Designed two different use cases for GolfTracker component
 
-## 2026.31.03
+## 2026.04.14
+
+### Added
+
+- Designed kernel implementation for GolfTracker component (GolfTrackerOnSequence)
+- Implemented Round nested class and Course nested record
+
+### Updated
+
+- Updated implementation of equals() for GolfTracker to reflect proper practice introduced in class
+
+## 2026.03.31
 
 ### Added
 
@@ -23,7 +34,7 @@ the following form: YYYY.0M.0D.
 
 - Updated Javadoc description of replaceRound to reflect actual behavior (adds a copy of newRound, not the actual passed newRound)
 
-## 2026.09.03
+## 2026.03.09
 
 ### Added
 
@@ -35,7 +46,7 @@ the following form: YYYY.0M.0D.
 - Updated implementation of calculateHandicap to use other methods instead of roundEntries (designed to be an enhanced method)
 - Added methods not currently implemented to the enhanced interface: bestRound, averageDiff, averageScore, roundsAtCourse, and replaceRound
 
-## 2026.26.2
+## 2026.02.26
 
 ### Added
 
